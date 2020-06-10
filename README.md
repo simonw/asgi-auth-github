@@ -53,3 +53,45 @@ The middleware adds a new `"auth"` key to the scope containing details of the si
 The `"ts"` value is an integer `time.time()` timestamp representing when the user last signed in.
 
 If the user is not signed in (and you are not using required authentication) the `"auth"` scope key will be set to `None`.
+
+## Example using Starlette
+
+Here's an example using the [Starlette](https://www.starlette.io/) ASGI framework. You'll need to add your `client_id` and `client_secret` to this code before running it.
+
+Save the following as `starlette_demo.py`:
+
+```python
+from asgi_auth_github import GitHubAuth
+from starlette.applications import Starlette
+from starlette.responses import JSONResponse
+from starlette.routing import Route
+import uvicorn
+
+app = Starlette(debug=True)
+
+
+async def homepage(request):
+    return JSONResponse({"auth": request.scope["auth"]})
+
+
+app = Starlette(debug=True, routes=[Route("/", homepage),])
+
+
+authenticated_app = GitHubAuth(
+    app,
+    client_id="...",
+    client_secret="...",
+    require_auth=True,
+)
+
+if __name__ == "__main__":
+    uvicorn.run(authenticated_app, host="0.0.0.0", port=8001)
+```
+
+Install the dependencies like this:
+
+    pip install uvicorn starlette asgi-auth-github
+
+Then run it with:
+
+    python starlette_demo.py

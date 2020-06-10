@@ -22,9 +22,7 @@ setup(
     license="Apache License, Version 2.0",
     version=VERSION,
     packages=["asgi_auth_github"],
-    extras_require={
-        "test": ["pytest", "pytest-asyncio", "asgiref~=3.1.2"]
-    },
+    extras_require={"test": ["pytest", "pytest-asyncio", "asgiref~=3.1.2"]},
     tests_require=["asgi-auth-github[test]"],
     package_data={"asgi_auth_github": ["templates/*.html"]},
 )
