@@ -67,8 +67,6 @@ from starlette.responses import JSONResponse
 from starlette.routing import Route
 import uvicorn
 
-app = Starlette(debug=True)
-
 
 async def homepage(request):
     return JSONResponse({"auth": request.scope["auth"]})
