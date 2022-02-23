@@ -310,7 +310,7 @@ class GitHubAuth:
     def make_redirect_cookie(self, scope):
         """cookie to tell browser where to redirect post authentication"""
         redirect_cookie = SimpleCookie()
-        redirect_cookie[self.redirect_cookie_name] = scope["path"]
+        redirect_cookie[self.redirect_cookie_name] = scope["root_path"] + scope["path"]
         redirect_cookie[self.redirect_cookie_name]["path"] = "/"
         return redirect_cookie
 
